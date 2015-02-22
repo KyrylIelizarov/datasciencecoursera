@@ -13,10 +13,7 @@ DITEN - Università degli Studi di Genova, Genoa (I-16145), Italy.
 Universitat Politècnica de Catalunya (BarcelonaTech). Vilanova i la Geltrú (08800), Spain
 activityrecognition '@' smartlab.ws
 
-The set of variables that were estimated from these signals are: 
-mean: Mean value
-std: Standard deviation
-
+###Varible naming descriptions
 Data set contains the average of each variable for each activity and each subject.
 
 Variables that denots what subject performed activity and what activity was performed:   
@@ -25,13 +22,15 @@ Variables that denots what subject performed activity and what activity was perf
  * Subject                 : Factor 1:30
 
 Variables contain average values for each possible combination of Subject and Activity.
-Variable names codding rules:
 
+Variable names codding rules:
 * 't' or 'f' = time or frequency domain
 * 'Body' or 'Gravity' - Indicating body or gravity acceleration.
 * 'Acc' or 'Gyro' - Accelerometer or gyroscope measurment.
 * 'Jerk' - Jerk signals that were obtained the body linear acceleration and angular velocity were derived in time
 * 'Mag' - Magnitude signals that were calculated using Euclidean norm
+* 'mean' or 'std' - Mean or Standard deviation for original values
+* 'X' or 'Y' or 'Z' - denotes 3-axial signals in the X, Y or Z direction
 
 List of variables:
  * tBodyAccmeanX           : num  0.222 0.281 0.276 0.264 0.278 ...
@@ -113,3 +112,7 @@ Finally a Fast Fourier Transform (FFT) was applied to some of these signals prod
 
 These signals were used to estimate variables of the feature vector for each pattern:  
 'XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+The set of variables that were estimated from these signals are: 
+mean: Mean value
+std: Standard deviation
