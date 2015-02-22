@@ -42,7 +42,6 @@ ncol(allData)
 
 # Select 'mean()' and 'std()' measures from features using Regular Expression
 extractedData<-allData[,c(rep(TRUE,2),grepl("mean\\(\\)|std\\(\\)",features$VarName))]
-head(extractedData)
 
 # Merge with 'Activity' names
 extractedData <- merge(extractedData,activity_labels,by.x="Activity",by.y="ActivityNum",all.x=TRUE)
