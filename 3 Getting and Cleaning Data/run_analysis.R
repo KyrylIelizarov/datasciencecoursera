@@ -1,58 +1,62 @@
-#Read 'Activity' labels
+# Read 'Activity' labels
 activity_labels<-read.table("./UCI HAR Dataset/activity_labels.txt")
 colnames(activity_labels) <- c("ActivityNum","ActivityName")
 
-#Read 'features' names
+# Read 'features' names
 features <- read.table("./UCI HAR Dataset/features.txt")
 colnames(features) <- c("VarNum","VarName")
 
-#Reading 'test' data
+# Reading 'test' data
 testX <- read.table("./UCI HAR Dataset/test/X_test.txt")
 testY <- read.table("./UCI HAR Dataset/test/Y_test.txt")
 subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt")
 
-#Setting column names
+# Setting column names
 colnames(testY)<-c("Activity")
 colnames(subject_test)<-c("Subject")
 colnames(testX)<-features$VarName
 
-#Binding 'test' data
+# Binding 'test' data
 test <- cbind(testY,subject_test,testX)
 
-#Reading 'train' data
+# Reading 'train' data
 trainX <- read.table("./UCI HAR Dataset/train/X_train.txt")
 trainY <- read.table("./UCI HAR Dataset/train/Y_train.txt")
 subject_train<-read.table("./UCI HAR Dataset/train/subject_train.txt")
 
-#Setting column names
+# Setting column names
 colnames(trainY)<-c("Activity")
 colnames(subject_train)<-c("Subject")
 colnames(trainX)<-features$VarName
 
-#Binding 'train' data
+# Binding 'train' data
 train <- cbind(trainY,subject_train,trainX)
 
-#Appending 'train' and 'test' data into one dataset
+# Appending 'train' and 'test' data into one dataset
 allData <- rbind(train,test)
 
-#Check for row numbers. Should be 10,299 records
+# Check for row numbers. Should be 10,299 records
 nrow(allData)
-#Check for column numbers. Should be 561 attributes + 1 'Subject' attribute + 1 'Activity' atrribute
+# Check for column numbers. Should be 561 attributes + 1 'Subject' attribute + 1 'Activity' atrribute
 ncol(allData)
 
-#Select 'mean()' and 'std()' measures from features using Regular Expression
+# Select 'mean()' and 'std()' measures from features using Regular Expression
 extractedData<-allData[,c(rep(TRUE,2),grepl("mean\\(\\)|std\\(\\)",features$VarName))]
 head(extractedData)
 
-#Merge with 'Activity' names
+# Merge with 'Activity' names
 extractedData <- merge(extractedData,activity_labels,by.x="Activity",by.y="ActivityNum",all.x=TRUE)
 
-#Remove '-','(',')' from features names
+# Remove '-','(',')' from features names
 colnames(extractedData)<-gsub("-|\\(|\\)","",names(extractedData))
 
+# Copy ActivityName to Activity
 extractedData$Activity<-extractedData$ActivityName
 
+# Require package 'dplyr'
 library(dplyr)
+
+#  Creating independent tidy data set with the average of each variable for each activity and each subject
 tidy <-summarize(group_by(extractedData,Activity,Subject),
 	tBodyAccmeanX=mean(tBodyAccmeanX),
 	tBodyAccmeanY=mean(tBodyAccmeanY),
@@ -122,4 +126,5 @@ tidy <-summarize(group_by(extractedData,Activity,Subject),
 	fBodyBodyGyroJerkMagstd=mean(fBodyBodyGyroJerkMagstd)
 	)
 
+# Write data to text file
 write.table(tidy,"tidy_data.txt",row.names=FALSE)
