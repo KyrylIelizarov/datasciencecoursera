@@ -3,6 +3,10 @@
 ### Data overwiew
 Data set was created from Human Activity Recognition Using Smartphones Data Set 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist.
+Data set contains the average of each original variable that measures mean or standard deviation for each activity and each subject.
+
+Number of records 180
+Number of variables 68
 
 ###Source
 Jorge L. Reyes-Ortiz(1,2), Davide Anguita(1), Alessandro Ghio(1), Luca Oneto(1) and Xavier Parra(2)
